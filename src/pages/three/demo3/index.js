@@ -38,7 +38,6 @@ export class demo3 extends MiddleComponent {
     //this.camera.lookAt(-3.5,0,-4);
 
     this.scene = new THREE.Scene();
-    var directionalLight = new THREE.DirectionalLight(0xAAFFCC);
     var amlight = new THREE.AmbientLight(0xAAFFCC);
     //amlight.castShadow = true;
 
@@ -87,41 +86,14 @@ export class demo3 extends MiddleComponent {
     geometry.vertices = this.curve.getPoints(50);
     var material = new THREE.LineBasicMaterial({color : 0xff0000});
     var line = new THREE.Line(geometry, material);
-    //this.scene.add( line );
+    this.scene.add( line );
 
 
 
     var axesHelper = new THREE.AxesHelper( 400 );
     this.scene.add( axesHelper );
-    var loader1 = new THREE.ObjectLoader();
-        loader1.load("/model/chair.json",(obj)=> {
-            //this.scene.add(obj);
-        });
+    
 
-    var loader = new THREE.ColladaLoader();
-    this.meshgroup = new THREE.Group();
-        loader.load("/model/building.dae", (result)=> {
-          // mesh = result.scene.children[1].clone();
-          //   console.log(mesh)
-          //   mesh.scale.set(0.1,0.1,0.1);
-          //   this.scene.add(mesh);
-
-            var group = result.scene.children;
-          for(var i =0;i<group.length;i++){
-            var cur = group[i].clone();
-            console.log(cur)
-            //cur.scale.set(0.1,0.1,0.1);
-            //this.scene.add(cur);
-            this.meshgroup.add(cur);
-
-          }
-          this.meshgroup.scale.set(0.1,0.1,0.1);
-          this.meshgroup.rotation.x = -1.5;
-          //meshgroup.rotation.y = -0.5;
-
-            //this.scene.add(meshgroup);
-
-        });
         var mtlLoader = new THREE.MTLLoader();
         //加载mtl文件
         mtlLoader.load('/model/building3.mtl', (material)=> {
@@ -141,17 +113,6 @@ export class demo3 extends MiddleComponent {
             })
         });
 
-        // var objLoader = new THREE.OBJLoader();
-        //     //设置当前加载的纹理
-        //     objLoader.load('/model/building.obj', (object)=> {
-
-        //         //将模型缩放并添加到场景当中
-        //         object.scale.set(0.1,0.1,0.1);
-        //         this.scene.add(object);
-        //     })
-
-
-    //this.renderer.render(this.scene,this.camera);
   }
   animate = ()=>{
     // this.mesh.rotation.x += 0.03;
