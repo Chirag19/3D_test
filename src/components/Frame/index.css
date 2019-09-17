@@ -1,0 +1,12 @@
+@import '~antd/dist/antd.css';
+.logo{
+	height:50px;
+	line-height: 50px;
+	color:white;
+	text-align: left;
+	padding-bottom:5px;
+}
+.logo img{
+	width:30px;
+	margin:10px 20px;
+}

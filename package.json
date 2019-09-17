@@ -1,0 +1,34 @@
+{
+  "name": "react_3js",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "antd": "^3.16.3",
+    "react": "^16.8.6",
+    "react-custom-scrollbars": "^4.2.1",
+    "react-dom": "^16.8.6",
+    "react-router": "^5.0.0",
+    "react-scripts": "2.1.8",
+    "react-scroll": "^1.7.11",
+    "redux": "^4.0.1",
+    "three": "^0.103.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "react-router-dom": "^5.0.0"
+  }
+}
