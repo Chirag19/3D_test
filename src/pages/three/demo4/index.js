@@ -38,7 +38,7 @@ export class demo4 extends MiddleComponent {
 
 
     var amlight = new THREE.AmbientLight(0xAAFFCC);
-    amlight.castShadow = true;
+    //amlight.castShadow = true;
 
     this.scene.add(amlight);
 
@@ -46,7 +46,7 @@ export class demo4 extends MiddleComponent {
         light.position.set(10,10,0);
 
         //告诉平行光需要开启阴影投射
-        light.castShadow = true;
+        //light.castShadow = true;
 
         this.scene.add(light);
 
@@ -70,13 +70,15 @@ export class demo4 extends MiddleComponent {
         //将模型缩放并添加到场景当中
          object.scale.set(0.05,0.05,0.05);
         console.log(object)
-        object.children[0].material = material;
-        object.receiveShadow = true;
+
+		var groundMaterial = new THREE.MeshBasicMaterial({color: 0x777777});
+         object.children[0].material = groundMaterial;
+        // object.receiveShadow = true;
         object.position.setX(0);
         object.position.setZ(0);
         object.position.setY(0);
 
-        object.children[0].material.side = THREE.DoubleSide;
+        // object.children[0].material.side = THREE.DoubleSide;
 
         this.scene.add(object);
     })
