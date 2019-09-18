@@ -11,7 +11,8 @@
     "react-scripts": "2.1.8",
     "react-scroll": "^1.7.11",
     "redux": "^4.0.1",
-    "three": "^0.103.0"
+    "three": "^0.103.0",
+    "three-outlinepass": "^1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",

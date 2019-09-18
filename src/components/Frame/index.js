@@ -86,9 +86,9 @@ export class Frame extends MiddleComponent {
 			  		desc:'镜头拉伸demo'
 				},
 				{
-					title:'cube',
+					title:'天空盒子、描边',
 					to:'/three_4',
-					desc:'cube'
+					desc:'天空盒子、描边'
 				}
 			  ]
 			},
