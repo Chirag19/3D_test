@@ -23,23 +23,6 @@ export class Frame extends MiddleComponent {
 			title:'',
 		}
 		this.menu = [
-			// {
-			//   title:'d3',
-			//   children:[
-			//   	{
-			//   		title:'option1',
-			//   		to:'d3_1'
-			//   	},
-			//   	{
-			//   		title:'option2',
-			//   		to:'d3_2'
-			//   	},
-			//   	{
-			//   		title:'option3',
-			//   		to:'d3_3'
-			//   	}
-			//   ]
-			// },
 			{
 			  title:'react',
 			  children:[
@@ -50,23 +33,6 @@ export class Frame extends MiddleComponent {
 			  	},
 			  ]
 			},
-			// {
-			//   title:'pixi',
-			//   children:[
-			//   	{
-			//   		title:'option1',
-			//   		to:'/pixi_1'
-			//   	},
-			//   	{
-			//   		title:'option2',
-			//   		to:'/pixi_2'
-			//   	},
-			//   	{
-			//   		title:'option3',
-			//   		to:'/pixi_3'
-			//   	}
-			//   ]
-			// },
 			{
 			  title:'three',
 			  children:[
@@ -92,23 +58,16 @@ export class Frame extends MiddleComponent {
 				}
 			  ]
 			},
-			// {
-			//   title:'shader',
-			//   children:[
-			//   	{
-			//   		title:'option1',
-			//   		to:'shader_1'
-			//   	},
-			//   	{
-			//   		title:'option2',
-			//   		to:'shader_2'
-			//   	},
-			//   	{
-			//   		title:'option3',
-			//   		to:'shader_3'
-			//   	}
-			//   ]
-			// },
+			{
+				title:'cesium',
+				children:[
+					{
+						title:'cesium_demo1',
+						to:'/cesium_demo1',
+						desc:'cesium_demo1'
+					},
+				]
+			  },
 		];
   		this.initHeightLight();
 	}
@@ -145,7 +104,7 @@ export class Frame extends MiddleComponent {
 		var menu = this.menuDom();
 		return withRouter(({history})=>{
 			return (
-				<Menu  theme="dark" mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['react','d3','pixi','three','shader']}>
+				<Menu  theme="dark" mode="inline" selectedKeys={[history.location.pathname]} defaultOpenKeys={['react','d3','pixi','three','cesium']}>
 					{ menu }
 				</Menu>
 			)
