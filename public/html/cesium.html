@@ -14,7 +14,62 @@
 <body>
     <div id="cesiumContainer"></div>
     <script>
-        var viewer = new Cesium.Viewer('cesiumContainer');
+        var viewer = new Cesium.Viewer('cesiumContainer',{
+            animation: true, //是否显示动画控件(左下方那个)
+            baseLayerPicker: true, //是否显示图层选择控件
+            geocoder: true, //是否显示地名查找控件
+            timeline: true, //是否显示时间线控件
+            sceneModePicker: true, //是否显示投影方式控件
+            navigationHelpButton: false, //是否显示帮助信息控件
+            infoBox: true, //是否显示点击要素之后显示的信息
+        });
+        viewer.scene.debugShowFramesPerSecond = true;
+        var entity = viewer.entities.add({ 
+            position : Cesium.Cartesian3.fromDegrees(-123.0744619, 44.0503706), 
+            model : { 
+                uri : '../model/car2.gltf',
+                color:Cesium.Color.BLUE.withAlpha(0.5),
+                incrementallyLoadTextures:true,
+                scale : 100,//和原始大小相比的缩放比例
+                //minimumPixelSize :1000 //最小尺寸，防止太小而看不见
+            },
+            
+        });
+
+        var entity1 = viewer.entities.add({
+            position: Cesium.Cartesian3.fromDegrees(-103.0, 40.0),
+            ellipse : {
+                semiMinorAxis : 250000.0,
+                semiMajorAxis : 400000.0,
+                material : Cesium.Color.BLUE.withAlpha(0.5)//可设置不同的MaterialProperty
+            }
+        });
+ 
+        //方法二，构造后赋材质
+        var ellipse = entity1.ellipse;
+        ellipse.material = Cesium.Color.RED;
+        setTimeout(()=>{
+        ellipse.material = Cesium.Color.BLUE;
+
+        },3000)
+
+
+
+        viewer.trackedEntity = entity; // 镜头追踪，将镜头固定在对象上
+        var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+        handler.setInputAction(
+            function (movement) {
+                var pick = viewer.scene.pick(movement.endPosition);
+                if (Cesium.defined(pick) && Cesium.defined(pick.node) && Cesium.defined(pick.mesh)) {
+                    console.log(pick.node);
+                    // pick.node._model.color = Cesium.Color.BLUE.withAlpha(0.5)
+                    pick.node._model.color=Cesium.Color.RED.withAlpha(0.5)
+                    entity.position = Cesium.Cartesian3.fromDegrees(-113.0, 40.0)
+
+                }
+            },
+            Cesium.ScreenSpaceEventType.MOUSE_MOVE
+        );
     </script>
 </body>
 </html>
