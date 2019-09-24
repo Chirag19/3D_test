@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Hello 3D Earth</title>
-    <script src="/cesium/Cesium.js"></script>
+    
+
+    
+
+    <script src="../lib/cesium.config.js"></script>
+
+    
+
     <style>
         @import url(/cesium/Widgets/widgets.css);
         html, body, #cesiumContainer {
@@ -13,7 +20,13 @@
 </head>
 <body>
     <div id="cesiumContainer"></div>
+    <script src="/cesium/Cesium.js">
+
+
+    </script>
+    <script src="/cesium/lib/getLinkedPointList.js"></script>
     <script>
+        Cesium.Ion.defaultAccessToken = TOKEN;
         var viewer = new Cesium.Viewer('cesiumContainer',{
             animation: true, //是否显示动画控件(左下方那个)
             baseLayerPicker: true, //是否显示图层选择控件
@@ -24,6 +37,7 @@
             infoBox: true, //是否显示点击要素之后显示的信息
         });
         viewer.scene.debugShowFramesPerSecond = true;
+        viewer.scene.globe.depthTestAgainstTerrain = true;
         var entity = viewer.entities.add({ 
             position : Cesium.Cartesian3.fromDegrees(-123.0744619, 44.0503706), 
             model : { 
@@ -36,6 +50,7 @@
             
         });
 
+
         var entity1 = viewer.entities.add({
             position: Cesium.Cartesian3.fromDegrees(-103.0, 40.0),
             ellipse : {
@@ -44,7 +59,6 @@
                 material : Cesium.Color.BLUE.withAlpha(0.5)//可设置不同的MaterialProperty
             }
         });
- 
         //方法二，构造后赋材质
         var ellipse = entity1.ellipse;
         ellipse.material = Cesium.Color.RED;
@@ -52,10 +66,77 @@
         ellipse.material = Cesium.Color.BLUE;
 
         },3000)
+ 
+        
+        var cube = viewer.entities.add({//正方形
+            position:Cesium.Cartesian3.fromDegrees(-123.0744619, 44.0503706),
+            box:{
+                dimensions:new Cesium.Cartesian3(80.0, 80.0,80.0),
+                material:'/texture/bw.jpg'
+            }
+        })
 
 
+        //viewer.trackedEntity = cube; // 镜头追踪，将镜头固定在对象上
 
-        viewer.trackedEntity = entity; // 镜头追踪，将镜头固定在对象上
+
+        var promise=Cesium.GeoJsonDataSource.load('../model/china.json');
+        promise.then(function(dataSource) {
+            viewer.dataSources.add(dataSource);
+            var entities = dataSource.entities.values;
+            var colorHash = {};
+            for (var i = 0; i < entities.length; i++) {
+                var entity = entities[i];
+                var color =Cesium.Color.fromRandom({
+                    alpha: 1.0
+                });
+                entity.polygon.material = color;
+                entity.polygon.outline = false;
+                entity.polygon.extrudedHeight = Math.floor(Math.random()*40000+80000) //80000~120000的随机数，单位是米
+                //viewer.zoomTo(promise)
+            }
+        });
+
+
+        
+
+
+        var scene = viewer.scene;
+        var primitives = scene.primitives;
+        var colors = [
+            new Cesium.Color(77 / 255, 201 / 255, 255 / 255, 1),
+            new Cesium.Color(255 / 255, 201 / 255, 38 / 255, 1),
+            new Cesium.Color(221 / 255, 221 / 255, 221 / 255, 1)
+        ];
+        function add() {
+            for (var i = 0, len = 10; i < len; i++) {
+                var startPoint = Cesium.Cartesian3.fromDegrees(Math.random() * 100, Math.random() * 100);
+                var endPoint = Cesium.Cartesian3.fromDegrees(Math.random() * 100, Math.random() * 100);
+                var positions = Cesium.getLinkedPointList(startPoint, endPoint, 10000, 5000);
+                // var positions = Cesium.Cartesian3.fromDegreesArray([
+                //     Math.random() * 10000, Math.random() * 10000,
+                //     Math.random() * 10000, Math.random() * 10000,
+                // ]);
+                var color =Cesium.Color.fromRandom({
+                    alpha: 1.0
+                });
+                var glowingLine = viewer.entities.add({
+                    polyline: {
+                        positions: positions,
+                        width: 5,
+                        material:new Cesium.PolylineArrowMaterialProperty(color),
+                        // material: new Cesium.PolylineArrowLinkMaterialProperty({
+                        //     color: color,
+                        //     duration:1000
+                        // }),
+                        extrudedHeight:60000
+                    }
+                });
+            }
+        }
+        add();
+
+
         var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
         handler.setInputAction(
             function (movement) {
