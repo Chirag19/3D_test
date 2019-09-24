@@ -6,6 +6,8 @@ import {demo3} from './pages/three/demo3'
 import {demo4} from './pages/three/demo4'
 
 import {cesium_demo1} from './pages/cesium/demo1'
+import {cesium_demo2} from './pages/cesium/demo2'
+
 
 
 
@@ -24,6 +26,8 @@ const BasicRoute = () => (
         	<Route exact path="/vmodel" component={vmodel} />
 
         	<Route exact path="/cesium_demo1" component={cesium_demo1} />
+        	<Route exact path="/cesium_demo2" component={cesium_demo2} />
+
 
         </Switch>
     </HashRouter>
