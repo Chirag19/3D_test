@@ -62,14 +62,14 @@ export class Frame extends MiddleComponent {
 				title:'cesium',
 				children:[
 					{
-						title:'cesium_demo1_iframe',
+						title:'cesium_iframe',
 						to:'/cesium_demo1',
-						desc:'iframe方式'
+						desc:'iframe方式引入'
 					},
 					{
-						title:'cesium_demo2_react',
+						title:'cesium_react',
 						to:'/cesium_demo2',
-						desc:'react框架内'
+						desc:'与react框架整合'
 					},
 				]
 			  },
