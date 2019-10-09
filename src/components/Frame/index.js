@@ -42,9 +42,9 @@ export class Frame extends MiddleComponent {
 			  		desc:'2000根飞线'
 			  	},
 			  	{
-			  		title:'cube',
+			  		title:'shader_法向贴图',
 			  		to:'/three_2',
-			  		desc:'一个运动立方体'
+			  		desc:'shader_法向贴图'
 			  	},
 			  	{
 			  		title:'镜头拉伸demo',
