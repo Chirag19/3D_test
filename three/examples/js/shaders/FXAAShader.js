@@ -8,9 +8,7 @@
  * http://www.glge.org/demos/fxaa/
  */
 
-import * as THREE from 'three'
-
-var FXAAShader = {
+THREE.FXAAShader = {
 
 	uniforms: {
 
@@ -1115,6 +1113,3 @@ var FXAAShader = {
 	].join("\n")
 
 };
-
-
-export default FXAAShader;

@@ -1,9 +1,8 @@
 /**
  * @author alteredq / http://alteredqualia.com/
  */
-import * as THREE from 'three'
 
-var MaskPass = function ( scene, camera ) {
+THREE.MaskPass = function ( scene, camera ) {
 
 	THREE.Pass.call( this );
 
@@ -17,9 +16,9 @@ var MaskPass = function ( scene, camera ) {
 
 };
 
-MaskPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
+THREE.MaskPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
 
-	constructor: MaskPass,
+	constructor: THREE.MaskPass,
 
 	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
 
@@ -82,7 +81,7 @@ MaskPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
 } );
 
 
-var ClearMaskPass = function () {
+THREE.ClearMaskPass = function () {
 
 	THREE.Pass.call( this );
 
@@ -90,9 +89,9 @@ var ClearMaskPass = function () {
 
 };
 
-ClearMaskPass.prototype = Object.create( THREE.Pass.prototype );
+THREE.ClearMaskPass.prototype = Object.create( THREE.Pass.prototype );
 
-Object.assign( ClearMaskPass.prototype, {
+Object.assign( THREE.ClearMaskPass.prototype, {
 
 	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
 
@@ -101,5 +100,3 @@ Object.assign( ClearMaskPass.prototype, {
 	}
 
 } );
-
-export {MaskPass,ClearMaskPass}

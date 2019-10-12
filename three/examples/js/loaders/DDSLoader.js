@@ -2,18 +2,22 @@
  * @author mrdoob / http://mrdoob.com/
  */
 
-THREE.DDSLoader = function ( manager ) {
+
+import * as THREE from 'three'
+
+
+var DDSLoader = function ( manager ) {
 
 	THREE.CompressedTextureLoader.call( this, manager );
 
-	this._parser = THREE.DDSLoader.parse;
+	this._parser = DDSLoader.parse;
 
 };
 
-THREE.DDSLoader.prototype = Object.create( THREE.CompressedTextureLoader.prototype );
-THREE.DDSLoader.prototype.constructor = THREE.DDSLoader;
+DDSLoader.prototype = Object.create( THREE.CompressedTextureLoader.prototype );
+DDSLoader.prototype.constructor = DDSLoader;
 
-THREE.DDSLoader.parse = function ( buffer, loadMipmaps ) {
+DDSLoader.parse = function ( buffer, loadMipmaps ) {
 
 	var dds = { mipmaps: [], width: 0, height: 0, format: null, mipmapCount: 1 };
 
@@ -138,14 +142,14 @@ THREE.DDSLoader.parse = function ( buffer, loadMipmaps ) {
 
 	if ( header[ off_magic ] !== DDS_MAGIC ) {
 
-		console.error( 'THREE.DDSLoader.parse: Invalid magic number in DDS header.' );
+		console.error( 'DDSLoader.parse: Invalid magic number in DDS header.' );
 		return dds;
 
 	}
 
 	if ( ! header[ off_pfFlags ] & DDPF_FOURCC ) {
 
-		console.error( 'THREE.DDSLoader.parse: Unsupported format, must contain a FourCC code.' );
+		console.error( 'DDSLoader.parse: Unsupported format, must contain a FourCC code.' );
 		return dds;
 
 	}
@@ -196,7 +200,7 @@ THREE.DDSLoader.parse = function ( buffer, loadMipmaps ) {
 
 			} else {
 
-				console.error( 'THREE.DDSLoader.parse: Unsupported FourCC code ', int32ToFourCC( fourCC ) );
+				console.error( 'DDSLoader.parse: Unsupported FourCC code ', int32ToFourCC( fourCC ) );
 				return dds;
 
 			}
@@ -222,7 +226,7 @@ THREE.DDSLoader.parse = function ( buffer, loadMipmaps ) {
 		! ( caps2 & DDSCAPS2_CUBEMAP_NEGATIVEZ )
 	) ) {
 
-		console.error( 'THREE.DDSLoader.parse: Incomplete cubemap faces' );
+		console.error( 'DDSLoader.parse: Incomplete cubemap faces' );
 		return dds;
 
 	}
@@ -270,3 +274,6 @@ THREE.DDSLoader.parse = function ( buffer, loadMipmaps ) {
 	return dds;
 
 };
+
+
+export default DDSLoader;

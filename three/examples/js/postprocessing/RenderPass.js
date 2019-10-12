@@ -2,9 +2,7 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-import * as THREE from 'three'
-
-const RenderPass = function ( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
+THREE.RenderPass = function ( scene, camera, overrideMaterial, clearColor, clearAlpha ) {
 
 	THREE.Pass.call( this );
 
@@ -22,9 +20,9 @@ const RenderPass = function ( scene, camera, overrideMaterial, clearColor, clear
 
 };
 
-RenderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
+THREE.RenderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
 
-	constructor: RenderPass,
+	constructor: THREE.RenderPass,
 
 	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
 
@@ -68,6 +66,3 @@ RenderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
 	}
 
 } );
-
-
-export default RenderPass;

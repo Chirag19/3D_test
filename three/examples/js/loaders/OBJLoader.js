@@ -1,11 +1,13 @@
 /**
  * @author mrdoob / http://mrdoob.com/
  */
-import * as THREE from "three"
+
+
+import * as THREE from 'three'
 
 
 
-const OBJLoader = ( function () {
+var OBJLoader = ( function () {
 
 	// o object_name | g group_name
 	var object_pattern = /^[og]\s*(.+)?/;
@@ -798,5 +800,6 @@ const OBJLoader = ( function () {
 	return OBJLoader;
 
 } )();
+
 
 export default OBJLoader;

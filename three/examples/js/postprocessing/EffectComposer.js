@@ -2,10 +2,7 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-import * as THREE from 'three'
-
-
-var EffectComposer = function ( renderer, renderTarget ) {
+THREE.EffectComposer = function ( renderer, renderTarget ) {
 
 	this.renderer = renderer;
 
@@ -39,13 +36,13 @@ var EffectComposer = function ( renderer, renderTarget ) {
 
 	if ( THREE.CopyShader === undefined ) {
 
-		console.error( 'EffectComposer relies on THREE.CopyShader' );
+		console.error( 'THREE.EffectComposer relies on THREE.CopyShader' );
 
 	}
 
 	if ( THREE.ShaderPass === undefined ) {
 
-		console.error( 'EffectComposer relies on THREE.ShaderPass' );
+		console.error( 'THREE.EffectComposer relies on THREE.ShaderPass' );
 
 	}
 
@@ -55,7 +52,7 @@ var EffectComposer = function ( renderer, renderTarget ) {
 
 };
 
-Object.assign( EffectComposer.prototype, {
+Object.assign( THREE.EffectComposer.prototype, {
 
 	swapBuffers: function () {
 
@@ -198,7 +195,7 @@ Object.assign( EffectComposer.prototype, {
 } );
 
 
-var Pass = function () {
+THREE.Pass = function () {
 
 	// if set to true, the pass is processed by the composer
 	this.enabled = true;
@@ -213,22 +210,21 @@ var Pass = function () {
 	this.renderToScreen = false;
 
 };
-Pass.prototype = {};
 
-Object.assign( Pass.prototype, {
+Object.assign( THREE.Pass.prototype, {
 
 	setSize: function ( width, height ) {},
 
 	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
 
-		console.error( 'Pass: .render() must be implemented in derived pass.' );
+		console.error( 'THREE.Pass: .render() must be implemented in derived pass.' );
 
 	}
 
 } );
 
 // Helper for passes that need to fill the viewport with a single quad.
-Pass.FullScreenQuad = ( function () {
+THREE.Pass.FullScreenQuad = ( function () {
 
 	var camera = new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
 	var geometry = new THREE.PlaneBufferGeometry( 2, 2 );
@@ -268,5 +264,3 @@ Pass.FullScreenQuad = ( function () {
 	return FullScreenQuad;
 
 } )();
-
-export {EffectComposer,Pass}

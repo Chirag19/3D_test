@@ -4,15 +4,17 @@
  * @author takahirox / https://github.com/takahirox/
  */
 
-THREE.TGALoader = function ( manager ) {
+import * as THREE from 'three'
+
+var TGALoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
 };
 
-THREE.TGALoader.prototype = {
+TGALoader.prototype = {
 
-	constructor: THREE.TGALoader,
+	constructor: TGALoader,
 
 	load: function ( url, onLoad, onProgress, onError ) {
 
@@ -55,7 +57,7 @@ THREE.TGALoader.prototype = {
 				case TGA_TYPE_RLE_INDEXED:
 					if ( header.colormap_length > 256 || header.colormap_size !== 24 || header.colormap_type !== 1 ) {
 
-						console.error( 'THREE.TGALoader: Invalid type colormap data for indexed type.' );
+						console.error( 'TGALoader: Invalid type colormap data for indexed type.' );
 
 					}
 					break;
@@ -68,7 +70,7 @@ THREE.TGALoader.prototype = {
 				case TGA_TYPE_RLE_GREY:
 					if ( header.colormap_type ) {
 
-						console.error( 'THREE.TGALoader: Invalid type colormap data for colormap type.' );
+						console.error( 'TGALoader: Invalid type colormap data for colormap type.' );
 
 					}
 					break;
@@ -76,12 +78,12 @@ THREE.TGALoader.prototype = {
 				// What the need of a file without data ?
 
 				case TGA_TYPE_NO_DATA:
-					console.error( 'THREE.TGALoader: No data.' );
+					console.error( 'TGALoader: No data.' );
 
 				// Invalid type ?
 
 				default:
-					console.error( 'THREE.TGALoader: Invalid type "%s".', header.image_type );
+					console.error( 'TGALoader: Invalid type "%s".', header.image_type );
 
 			}
 
@@ -89,7 +91,7 @@ THREE.TGALoader.prototype = {
 
 			if ( header.width <= 0 || header.height <= 0 ) {
 
-				console.error( 'THREE.TGALoader: Invalid image size.' );
+				console.error( 'TGALoader: Invalid image size.' );
 
 			}
 
@@ -98,7 +100,7 @@ THREE.TGALoader.prototype = {
 			if ( header.pixel_size !== 8 && header.pixel_size !== 16 &&
 				header.pixel_size !== 24 && header.pixel_size !== 32 ) {
 
-				console.error( 'THREE.TGALoader: Invalid pixel size "%s".', header.pixel_size );
+				console.error( 'TGALoader: Invalid pixel size "%s".', header.pixel_size );
 
 			}
 
@@ -393,7 +395,7 @@ THREE.TGALoader.prototype = {
 						break;
 
 					default:
-						console.error( 'THREE.TGALoader: Format not supported.' );
+						console.error( 'TGALoader: Format not supported.' );
 						break;
 
 				}
@@ -419,7 +421,7 @@ THREE.TGALoader.prototype = {
 						break;
 
 					default:
-						console.error( 'THREE.TGALoader: Format not supported.' );
+						console.error( 'TGALoader: Format not supported.' );
 						break;
 
 				}
@@ -450,7 +452,7 @@ THREE.TGALoader.prototype = {
 			TGA_ORIGIN_UL = 0x02,
 			TGA_ORIGIN_UR = 0x03;
 
-		if ( buffer.length < 19 ) console.error( 'THREE.TGALoader: Not enough data to contain header.' );
+		if ( buffer.length < 19 ) console.error( 'TGALoader: Not enough data to contain header.' );
 
 		var content = new Uint8Array( buffer ),
 			offset = 0,
@@ -477,7 +479,7 @@ THREE.TGALoader.prototype = {
 
 		if ( header.id_length + offset > buffer.length ) {
 
-			console.error( 'THREE.TGALoader: No data.' );
+			console.error( 'TGALoader: No data.' );
 
 		}
 
@@ -548,3 +550,6 @@ THREE.TGALoader.prototype = {
 	}
 
 };
+
+
+export default TGALoader;

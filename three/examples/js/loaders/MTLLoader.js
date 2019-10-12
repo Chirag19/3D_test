@@ -4,10 +4,9 @@
  * @author angelxuanchang
  */
 
-import * as THREE from "three"
+import * as THREE from 'three'
 
-
-const MTLLoader = function ( manager ) {
+var MTLLoader = function ( manager ) {
 
 	this.manager = ( manager !== undefined ) ? manager : THREE.DefaultLoadingManager;
 
@@ -584,6 +583,5 @@ MTLLoader.MaterialCreator.prototype = {
 	}
 
 };
-
 
 export default MTLLoader;
