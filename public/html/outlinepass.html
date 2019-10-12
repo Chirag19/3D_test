@@ -23,7 +23,6 @@
 <script>
     var camera, scene, renderer, composer;
 			var object, light;
-			var glitchPass;
 			init();
 			animate();
 			function init() {
@@ -32,6 +31,7 @@
                 renderer.setSize( window.innerWidth, window.innerHeight );
                 renderer.gammaInput = true;
                 renderer.gammaOutput = true;
+                // renderer.autoClear = false;
 				document.body.appendChild( renderer.domElement );
 				//
 				camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -55,15 +55,44 @@
 				light.position.set( 1, 1, 1 );
 				scene.add( light );
 				// postprocessing
-				composer = new THREE.EffectComposer( renderer );
-				composer.addPass( new THREE.RenderPass( scene, camera ) );
-				glitchPass = new THREE.GlitchPass();
-				glitchPass.renderToScreen = true;
-                composer.addPass( glitchPass );
+                composer = new THREE.EffectComposer( renderer );
+                composer.renderTarget1.stencilBuffer = true;
+                composer.renderTarget2.stencilBuffer = true;
+                composer.addPass( new THREE.RenderPass( scene, camera ) );
+
+                var effect = new THREE.ShaderPass( THREE.DotScreenShader );
+				effect.uniforms[ 'scale' ].value = 4;
+                composer.addPass( effect );
+                
+                var RGBShiftShader = new THREE.ShaderPass( THREE.RGBShiftShader );
+				RGBShiftShader.uniforms[ 'amount' ].value = 0.0015;
+				composer.addPass( RGBShiftShader );
+
+                
+                //测试
+                var LightShader = new THREE.ShaderPass( THREE.LightShader );
+                // composer.addPass(LightShader);
+
+                //黑白效果
+                var CustomGrayScaleShader = new THREE.ShaderPass( THREE.CustomGrayScaleShader );
+                composer.addPass(CustomGrayScaleShader);
+
+                //抗锯齿
                 var effectFXAA = new THREE.ShaderPass( THREE.FXAAShader );
-                effectFXAA.uniforms[ 'resolution' ].value.set( 1 / window.innerWidth, 1 / window.innerHeight );
                 composer.addPass(effectFXAA);
-				//
+
+                //辉光
+                var bloomPass=new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),1.5,0.4,0.85);
+                bloomPass.renderToScreen=true;
+                composer.addPass(bloomPass);
+
+                //电视
+				var glitchPass = new THREE.GlitchPass();
+				glitchPass.renderToScreen = true;
+                // composer.addPass( glitchPass );
+                
+                
+
 				window.addEventListener( 'resize', onWindowResize, false );
 			}
 			function onWindowResize() {
@@ -75,9 +104,11 @@
 			function animate() {
 				requestAnimationFrame( animate );
 				var time = Date.now();
-				// object.rotation.x += 0.005;
-				// object.rotation.y += 0.01;
-				composer.render();
+				object.rotation.x += 0.005;
+                object.rotation.y += 0.01;
+                // renderer.clear();
+                composer.render();
+                // renderer.clearDepth();
 				// renderer.render(scene, camera);
 			}
 </script>
