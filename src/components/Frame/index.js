@@ -55,6 +55,11 @@ export class Frame extends MiddleComponent {
 					title:'天空盒子、描边',
 					to:'/three_4',
 					desc:'天空盒子、描边'
+				},
+				{
+					title:'postprocessing',
+					to:'/three_5',
+					desc:'postprocessing'
 				}
 			  ]
 			},

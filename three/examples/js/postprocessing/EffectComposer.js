@@ -2,7 +2,10 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-THREE.EffectComposer = function ( renderer, renderTarget ) {
+import * as THREE from 'three'
+
+
+var EffectComposer = function ( renderer, renderTarget ) {
 
 	this.renderer = renderer;
 
@@ -36,13 +39,13 @@ THREE.EffectComposer = function ( renderer, renderTarget ) {
 
 	if ( THREE.CopyShader === undefined ) {
 
-		console.error( 'THREE.EffectComposer relies on THREE.CopyShader' );
+		console.error( 'EffectComposer relies on THREE.CopyShader' );
 
 	}
 
 	if ( THREE.ShaderPass === undefined ) {
 
-		console.error( 'THREE.EffectComposer relies on THREE.ShaderPass' );
+		console.error( 'EffectComposer relies on THREE.ShaderPass' );
 
 	}
 
@@ -52,7 +55,7 @@ THREE.EffectComposer = function ( renderer, renderTarget ) {
 
 };
 
-Object.assign( THREE.EffectComposer.prototype, {
+Object.assign( EffectComposer.prototype, {
 
 	swapBuffers: function () {
 
@@ -195,7 +198,7 @@ Object.assign( THREE.EffectComposer.prototype, {
 } );
 
 
-THREE.Pass = function () {
+var Pass = function () {
 
 	// if set to true, the pass is processed by the composer
 	this.enabled = true;
@@ -210,21 +213,22 @@ THREE.Pass = function () {
 	this.renderToScreen = false;
 
 };
+Pass.prototype = {};
 
-Object.assign( THREE.Pass.prototype, {
+Object.assign( Pass.prototype, {
 
 	setSize: function ( width, height ) {},
 
 	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
 
-		console.error( 'THREE.Pass: .render() must be implemented in derived pass.' );
+		console.error( 'Pass: .render() must be implemented in derived pass.' );
 
 	}
 
 } );
 
 // Helper for passes that need to fill the viewport with a single quad.
-THREE.Pass.FullScreenQuad = ( function () {
+Pass.FullScreenQuad = ( function () {
 
 	var camera = new THREE.OrthographicCamera( - 1, 1, 1, - 1, 0, 1 );
 	var geometry = new THREE.PlaneBufferGeometry( 2, 2 );
@@ -264,3 +268,5 @@ THREE.Pass.FullScreenQuad = ( function () {
 	return FullScreenQuad;
 
 } )();
+
+export {EffectComposer,Pass}

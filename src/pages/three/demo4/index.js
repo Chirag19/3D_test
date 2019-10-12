@@ -158,6 +158,7 @@ export class demo4 extends MiddleComponent {
         this.compose.addPass(renderPass);
         this.compose.addPass(outlinePass);
 
+        //type1
         var params = {
             edgeStrength: 2.0,
             edgeGlow: 1,
@@ -169,6 +170,8 @@ export class demo4 extends MiddleComponent {
         outlinePass.edgeGlow = params.edgeGlow;
         outlinePass.visibleEdgeColor.set(0x00FFAA);
         outlinePass.hiddenEdgeColor.set(0x444444);
+
+        //type2
     })
 
     this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);

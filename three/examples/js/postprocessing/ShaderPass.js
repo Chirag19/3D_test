@@ -2,7 +2,9 @@
  * @author alteredq / http://alteredqualia.com/
  */
 
-THREE.ShaderPass = function ( shader, textureID ) {
+import * as THREE from 'three'
+
+var ShaderPass = function ( shader, textureID ) {
 
 	THREE.Pass.call( this );
 
@@ -32,9 +34,10 @@ THREE.ShaderPass = function ( shader, textureID ) {
 	this.fsQuad = new THREE.Pass.FullScreenQuad( this.material );
 };
 
-THREE.ShaderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
 
-	constructor: THREE.ShaderPass,
+ShaderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype ), {
+
+	constructor: ShaderPass,
 
 	render: function ( renderer, writeBuffer, readBuffer, deltaTime, maskActive ) {
 
@@ -63,3 +66,6 @@ THREE.ShaderPass.prototype = Object.assign( Object.create( THREE.Pass.prototype 
 	}
 
 } );
+
+
+export default ShaderPass;
