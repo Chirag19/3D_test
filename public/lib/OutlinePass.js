@@ -2982,12 +2982,13 @@ THREE.LuminosityHighPassShader = {
   };
   
 
-  THREE.BlackWhiteShader = {
+  /**
+   * author:桔子桑
+   * time:2019.10.13
+   */
+  THREE.SweepingLightShader = {
 	uniforms: {
         "tDiffuse": {type: "t", value: null},
-        "rPower": {type: "f", value: 0.2126},
-        "gPower": {type: "f", value: 0.7152},
-		"bPower": {type: "f", value: 0.0722},
 		"time":{type: "f", value: -1.0}
 	},
 	vertexShader:`

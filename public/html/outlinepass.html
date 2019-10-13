@@ -73,9 +73,9 @@
 				// composer.addPass( RGBShiftShader );
 
 				
-                //测试
-				BlackWhiteShader = new THREE.ShaderPass( THREE.BlackWhiteShader );
-                composer.addPass(BlackWhiteShader);
+                //扫光效果
+				SweepingLightShader = new THREE.ShaderPass( THREE.SweepingLightShader );
+                composer.addPass(SweepingLightShader);
 
                 //黑白效果
                 var CustomGrayScaleShader = new THREE.ShaderPass( THREE.CustomGrayScaleShader );
@@ -124,7 +124,7 @@
 				// object.rotation.x += 0.005;
                 // object.rotation.y += 0.01;
 				// renderer.clear();
-				var time = BlackWhiteShader.uniforms[ 'time' ].value;
+				var time = SweepingLightShader.uniforms[ 'time' ].value;
 				console.log(time)
 				if(time > 1.0){
 					type = 'reduce'
@@ -132,9 +132,9 @@
 					type = 'add';
 				}
 				if(type =='add'){
-					BlackWhiteShader.uniforms[ 'time' ].value += 0.01;
+					SweepingLightShader.uniforms[ 'time' ].value += 0.01;
 				}else{
-					BlackWhiteShader.uniforms[ 'time' ].value -= 0.01;
+					SweepingLightShader.uniforms[ 'time' ].value -= 0.01;
 				}
 
                 composer.render();
