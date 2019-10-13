@@ -58,39 +58,54 @@
                 composer = new THREE.EffectComposer( renderer );
                 composer.renderTarget1.stencilBuffer = true;
                 composer.renderTarget2.stencilBuffer = true;
-                composer.addPass( new THREE.RenderPass( scene, camera ) );
+				composer.addPass( new THREE.RenderPass( scene, camera ) );
+				
+				
+
+
 
                 var effect = new THREE.ShaderPass( THREE.DotScreenShader );
 				effect.uniforms[ 'scale' ].value = 4;
-                composer.addPass( effect );
+                // composer.addPass( effect );
                 
                 var RGBShiftShader = new THREE.ShaderPass( THREE.RGBShiftShader );
 				RGBShiftShader.uniforms[ 'amount' ].value = 0.0015;
-				composer.addPass( RGBShiftShader );
+				// composer.addPass( RGBShiftShader );
 
-                
+				
                 //测试
-                var LightShader = new THREE.ShaderPass( THREE.LightShader );
-                // composer.addPass(LightShader);
+				BlackWhiteShader = new THREE.ShaderPass( THREE.BlackWhiteShader );
+                composer.addPass(BlackWhiteShader);
 
                 //黑白效果
                 var CustomGrayScaleShader = new THREE.ShaderPass( THREE.CustomGrayScaleShader );
-                composer.addPass(CustomGrayScaleShader);
+                // composer.addPass(CustomGrayScaleShader);
 
                 //抗锯齿
                 var effectFXAA = new THREE.ShaderPass( THREE.FXAAShader );
                 composer.addPass(effectFXAA);
 
-                //辉光
-                var bloomPass=new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),1.5,0.4,0.85);
+                
+				//辉光通道
+				var params = {
+					exposure: 1,
+					bloomStrength: 1.5,
+					bloomThreshold: 0,
+					bloomRadius: 0
+				};
+                var bloomPass=new THREE.UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),0.0,0.4,0.85);
                 bloomPass.renderToScreen=true;
+				// bloomPass.threshold = params.bloomThreshold;
+				// bloomPass.strength = params.bloomStrength;
+				// bloomPass.radius = params.bloomRadius;
+
                 composer.addPass(bloomPass);
 
-                //电视
+                //电视效果通道
 				var glitchPass = new THREE.GlitchPass();
 				glitchPass.renderToScreen = true;
-                // composer.addPass( glitchPass );
-                
+				// composer.addPass( glitchPass );
+				
                 
 
 				window.addEventListener( 'resize', onWindowResize, false );
@@ -101,12 +116,27 @@
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				composer.setSize( window.innerWidth, window.innerHeight );
 			}
+			var type = 'add';
+
 			function animate() {
 				requestAnimationFrame( animate );
 				var time = Date.now();
-				object.rotation.x += 0.005;
-                object.rotation.y += 0.01;
-                // renderer.clear();
+				// object.rotation.x += 0.005;
+                // object.rotation.y += 0.01;
+				// renderer.clear();
+				var time = BlackWhiteShader.uniforms[ 'time' ].value;
+				console.log(time)
+				if(time > 1.0){
+					type = 'reduce'
+				}else if(time < -1.0){
+					type = 'add';
+				}
+				if(type =='add'){
+					BlackWhiteShader.uniforms[ 'time' ].value += 0.01;
+				}else{
+					BlackWhiteShader.uniforms[ 'time' ].value -= 0.01;
+				}
+
                 composer.render();
                 // renderer.clearDepth();
 				// renderer.render(scene, camera);

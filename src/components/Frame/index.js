@@ -57,9 +57,9 @@ export class Frame extends MiddleComponent {
 					desc:'天空盒子、描边'
 				},
 				{
-					title:'postprocessing',
+					title:'后期_扫光',
 					to:'/three_5',
-					desc:'postprocessing'
+					desc:'后期_扫光'
 				}
 			  ]
 			},
