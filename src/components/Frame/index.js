@@ -60,6 +60,11 @@ export class Frame extends MiddleComponent {
 					title:'后期_扫光',
 					to:'/three_5',
 					desc:'后期_扫光'
+				},
+				{
+					title:'shader地球',
+					to:'/three_6',
+					desc:'shader地球'
 				}
 			  ]
 			},
