@@ -18,7 +18,7 @@
 <script src="../lib/three.min.js"></script>
 <script src="../lib/stats.min.js"></script>
 <script src="../lib/OrbitControl.js"></script>
-<script src="../lib/OutlinePass.js"></script>
+<script src="../lib/postprocessing.js"></script>
 
 <script>
     var camera, scene, renderer, composer;
@@ -125,7 +125,7 @@
                 // object.rotation.y += 0.01;
 				// renderer.clear();
 				var time = SweepingLightShader.uniforms[ 'time' ].value;
-				console.log(time)
+				// console.log(time)
 				if(time > 1.0){
 					type = 'reduce'
 				}else if(time < -1.0){
