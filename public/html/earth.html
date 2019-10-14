@@ -17,6 +17,8 @@
 <script src="../lib/three.min.js"></script>
 <script src="../lib/stats.min.js"></script>
 <script src="../lib/OrbitControl.js"></script>
+<script src="../lib/heatmap.min.js"></script>
+
 
 
 
@@ -123,27 +125,79 @@
     const fs = `
         varying vec2 vUv;
         uniform sampler2D earth;
+        uniform sampler2D heatMap;
+
         varying vec3 iPosition;
 
 
         void main(){
-            vec3 world = texture2D(earth, vUv).xyz;
-            float x = iPosition.x;
-            float y = iPosition.y;
-            float z = iPosition.z;
-
-            if(y>0.0&&y<25.0){
-            gl_FragColor = vec4(world,0.3);
-
+            vec4 earthT = texture2D(earth, vUv);
+            vec4 heatMapT = texture2D(heatMap, vUv);
+            if(heatMapT.r<1.0/255.0){
+                //heatMapT = vec4(0.0,0.0,0.0,0.0);
+                heatMapT.a =0.0;
+                heatMapT = heatMapT*0.3;
             }else{
-            gl_FragColor = vec4(world,0.6);
-
-
+                heatMapT=heatMapT*0.5;
             }
+
+            gl_FragColor = vec4(earthT+heatMapT);
+
+            // float x = iPosition.x;
+            // float y = iPosition.y;
+            // float z = iPosition.z;
+
+            // if(y>0.0&&y<25.0){
+            // gl_FragColor = vec4(world,0.3);
+
+            // }else{
+            // gl_FragColor = vec4(world,0.6);
+
+
+            // }
         }
 
         
     `;
+
+    function drawheat(){
+      var app = document.body;
+      var width = 400,height = 400;
+      let paletteCanvas = document.createElement("div");
+      paletteCanvas.style.cssText = "height:400px;width:400px;z-index:99999";
+
+      app.appendChild(paletteCanvas)
+
+      var heatmapInstance = h337.create({
+        container: paletteCanvas
+      })
+      var points = []
+      var max = 0
+      for(var i = 0;i<400;i++){
+        var val = Math.floor(Math.random() * 100);
+        max = Math.max(max, val);
+        var point = {
+          // x: 0+i*4,
+          // y: 300,
+          x:Math.floor(Math.random() * 400),
+          y:Math.floor(Math.random() * 400),
+          radius: 20,
+          value: 40
+        };
+        points.push(point)
+      }
+      var data = {
+        max: 100,
+        data: points
+      }
+      heatmapInstance.setData(data);
+      var canvas = paletteCanvas.getElementsByTagName('canvas')[0];
+      console.log(canvas)
+      //heatmapInstance = null;
+      return canvas;
+      // document.body.appendChild(heatmapInstance)
+    };
+    // drawheat();
 
     // 添加地球
     var globeMesh;
@@ -157,6 +211,19 @@
         var earthTexture = new THREE.TextureLoader().load('../texture/earth.jpeg');
         globeMaterial.uniforms.earth.value = earthTexture;
 
+        let heatMapTexture = new THREE.Texture(drawheat());
+        heatMapTexture.needsUpdate = true;
+        globeMaterial.uniforms.heatMap.value = heatMapTexture;
+
+        let heatMapMaterial = new THREE.MeshBasicMaterial({
+            map: heatMapTexture,
+            transparent:true
+        });
+        // heatMapMaterial.map.needsUpdate = true;
+
+
+
+
         globeMesh = new THREE.Mesh(globeGgeometry, globeMaterial);
         scene.add(globeMesh);
     }
@@ -169,7 +236,8 @@
         var uniforms = {
             time: {type: 'f', value: -70.0},
             size:{type:'f',value:25.0},
-            earth:{type:'t',value:null}
+            earth:{type:'t',value:null},
+            heatMap:{type:'t',value:null}
         };
 
         var meshMaterial = new THREE.ShaderMaterial({
