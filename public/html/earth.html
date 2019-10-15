@@ -133,15 +133,17 @@
         void main(){
             vec4 earthT = texture2D(earth, vUv);
             vec4 heatMapT = texture2D(heatMap, vUv);
-            if(heatMapT.r<1.0/255.0){
+            if( heatMapT.g<1.0/255.0){
                 //heatMapT = vec4(0.0,0.0,0.0,0.0);
                 heatMapT.a =0.0;
-                heatMapT = heatMapT*0.3;
+                heatMapT = heatMapT*0.2;
             }else{
-                heatMapT=heatMapT*0.5;
+                heatMapT=heatMapT*1.0;
             }
+            heatMapT.g = heatMapT.g * 0.5;
 
-            gl_FragColor = vec4(earthT+heatMapT);
+
+            gl_FragColor = vec4(vec3(earthT + heatMapT),1.0);
 
             // float x = iPosition.x;
             // float y = iPosition.y;
@@ -164,7 +166,7 @@
       var app = document.body;
       var width = 400,height = 400;
       let paletteCanvas = document.createElement("div");
-      paletteCanvas.style.cssText = "height:400px;width:400px;z-index:99999";
+      paletteCanvas.style.cssText = "height:1000px;width:2000px;z-index:99999;margin-top:-400px;";
 
       app.appendChild(paletteCanvas)
 
@@ -173,14 +175,14 @@
       })
       var points = []
       var max = 0
-      for(var i = 0;i<400;i++){
+      for(var i = 0;i<1000;i++){
         var val = Math.floor(Math.random() * 100);
         max = Math.max(max, val);
         var point = {
           // x: 0+i*4,
           // y: 300,
-          x:Math.floor(Math.random() * 400),
-          y:Math.floor(Math.random() * 400),
+          x:Math.floor(Math.random() * 2000 ),
+          y:Math.floor(Math.random() * 1000 ),
           radius: 20,
           value: 40
         };
@@ -225,6 +227,7 @@
 
 
         globeMesh = new THREE.Mesh(globeGgeometry, globeMaterial);
+        globeMesh.position.setY(30);
         scene.add(globeMesh);
     }
 
