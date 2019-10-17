@@ -124,18 +124,21 @@
 				// object.rotation.x += 0.005;
                 // object.rotation.y += 0.01;
 				// renderer.clear();
-				var time = SweepingLightShader.uniforms[ 'time' ].value;
-				// console.log(time)
-				if(time > 1.0){
-					type = 'reduce'
-				}else if(time < -1.0){
-					type = 'add';
-				}
-				if(type =='add'){
-					SweepingLightShader.uniforms[ 'time' ].value += 0.01;
-				}else{
-					SweepingLightShader.uniforms[ 'time' ].value -= 0.01;
-				}
+
+
+				// var time = SweepingLightShader.uniforms[ 'time' ].value;
+				// if(time > 1.0){
+				// 	type = 'reduce'
+				// }else if(time < -1.0){
+				// 	type = 'add';
+				// }
+				// if(type =='add'){
+				// 	SweepingLightShader.uniforms[ 'time' ].value += 0.01;
+				// }else{
+				// 	SweepingLightShader.uniforms[ 'time' ].value -= 0.01;
+				// }
+
+				SweepingLightShader.uniforms[ 'time' ].value += 0.05;
 
                 composer.render();
                 // renderer.clearDepth();
