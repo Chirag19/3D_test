@@ -39,33 +39,33 @@ export class Frame extends MiddleComponent {
 			  	{
 			  		title:'flyline',
 			  		to:'/three_1',
-			  		desc:'2000根飞线'
+			  		desc:'200根飞线'
 			  	},
-			  	{
-			  		title:'shader_法向贴图',
-			  		to:'/three_2',
-			  		desc:'shader_法向贴图'
-			  	},
-			  	{
-			  		title:'镜头拉伸demo',
-			  		to:'/three_3',
-			  		desc:'镜头拉伸demo'
-				},
-				{
-					title:'天空盒子、描边',
-					to:'/three_4',
-					desc:'天空盒子、描边'
-				},
+			  	// {
+			  	// 	title:'shader_法向贴图',
+			  	// 	to:'/three_2',
+			  	// 	desc:'shader_法向贴图'
+			  	// },
+			  	// {
+			  	// 	title:'镜头拉伸demo',
+			  	// 	to:'/three_3',
+			  	// 	desc:'镜头拉伸demo'
+				// },
+				// {
+				// 	title:'天空盒子、描边',
+				// 	to:'/three_4',
+				// 	desc:'天空盒子、描边'
+				// },
 				{
 					title:'后期_扫光',
 					to:'/three_5',
 					desc:'后期_扫光'
 				},
-				{
-					title:'shader地球',
-					to:'/three_6',
-					desc:'shader地球'
-				}
+				// {
+				// 	title:'shader地球',
+				// 	to:'/three_6',
+				// 	desc:'shader地球'
+				// }
 			  ]
 			},
 			{
