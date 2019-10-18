@@ -65,7 +65,12 @@ export class Frame extends MiddleComponent {
 				// 	title:'shader地球',
 				// 	to:'/three_6',
 				// 	desc:'shader地球'
-				// }
+				// },
+				{
+					title:'shader',
+					to:'/three_7',
+					desc:'shader'
+				}
 			  ]
 			},
 			{

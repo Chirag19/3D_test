@@ -6,6 +6,8 @@ import {demo3} from './pages/three/demo3'
 import {demo4} from './pages/three/demo4'
 import {demo5} from './pages/three/demo5'
 import {demo6} from './pages/three/demo6'
+import {demo7} from './pages/three/demo7'
+
 
 
 
@@ -22,6 +24,7 @@ import {vmodel} from './pages/react/v_model'
 const BasicRoute = () => (
 	<HashRouter>
         <Switch>
+			<Route exact path="/three_7" component={demo7} />
 			<Route exact path="/three_6" component={demo6} />
 			<Route exact path="/three_5" component={demo5} />
 			<Route exact path="/three_4" component={demo4} />
